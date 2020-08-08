@@ -3,9 +3,15 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/retail', {useNewUrlParser: true,useUnifiedTopology:true})
+      .then(()=>console.log('Connection to MongoDB is Successfull'))
+      .catch((err)=>console.log(err.message));
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var itemRouter = require('./routes/item');
 
 var app = express();
 app.set('port', process.env.PORT || 3000);
@@ -22,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/item', itemRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
