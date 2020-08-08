@@ -19,7 +19,6 @@ const Item = mongoose.model('item',mongoose.Schema(
             'L' : {type : Number, min : 1 ,max : 200 , default : 1},
             'XL' : {type : Number, min : 1 ,max : 200 , default : 1},
             'XXL' : {type : Number, min : 1 ,max : 200 , default : 1},
-
         }
     }
 ))
