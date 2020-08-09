@@ -3,10 +3,12 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const _ = require('lodash');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const config = require('config');
 
 const {User,validateUser} = require('../models/user');
 
-router.post('/',async (req,res,next)=>{
+router.post('/',async (req,res)=>{
 
     const result = await validateUser(req.body);
     if(result.error){
@@ -25,7 +27,8 @@ router.post('/',async (req,res,next)=>{
     const salt = await bcrypt.genSalt(10);
     user.password = await  bcrypt.hash(user.password,salt);
     const savedUser = await user.save();
-    res.send(_.pick(savedUser,['_id','name','email']));         
+    const token = await jwt.sign({_id : user._id,isAdmin : user.isAdmin},config.get('jwtPrivateKey'));
+    res.header('x-auth-token',token).send(_.pick(savedUser,['_id','name','email']));         
 });
 
 module.exports = router;

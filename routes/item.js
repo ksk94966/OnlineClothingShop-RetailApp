@@ -1,6 +1,9 @@
+const auth = require('../middleware/auth');
+const admin = require('../middleware/admin');
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+
 
 const {Item} = require('../models/item');
 const {validateItem} = require('../models/item');
@@ -11,7 +14,7 @@ router.get('/',async (req,res)=>{
     res.send(items);
 });
 
-router.post('/',async (req,res,next)=>{
+router.post('/',[auth,admin],async (req,res,next)=>{
 
     const result = validateItem(req.body);
     if(result.error){

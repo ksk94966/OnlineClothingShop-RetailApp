@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
+var config = require('config');
 
 //routes
 var indexRouter = require('./routes/index');
@@ -16,6 +17,14 @@ mongoose.connect('mongodb://localhost/retail', {useNewUrlParser: true,useUnified
 
 var app = express();
 app.set('port', process.env.PORT || 3000);
+
+//loading the PrivateKey
+if(!config.get('jwtPrivateKey'))
+{
+  console.error('Error loading the private Key..please define the key');
+  process.exit();
+}
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const _ = require('lodash');
 const bcrypt = require('bcrypt');
 const Joi = require('joi');
+const jwt = require('jsonwebtoken');
+const config = require('config');
 
 const {User} = require('../models/user');
 
@@ -22,7 +24,8 @@ router.post('/',async (req,res,next)=>{
     if(!validPassword)
         return res.status(400).send('Invalid email or Password');
     
-    res.send(true);         
+    const token = await jwt.sign({_id : user._id,isAdmin : user.isAdmin},config.get('jwtPrivateKey'));
+    res.header('x-auth-token',token).send("Login Successful");      
 });
 
 function validateUser(user){
