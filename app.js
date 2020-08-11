@@ -5,18 +5,21 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 var config = require('config');
+var bodyParser = require('body-parser');
 
 //routes
 var indexRouter = require('./routes/index');
 var itemRouter = require('./routes/item');
 var userRouter = require('./routes/user');
 var authRouter = require('./routes/auth');
+var signupformRouter = require('./routes/signup');
 mongoose.connect('mongodb://localhost/retail', {useNewUrlParser: true,useUnifiedTopology:true})
       .then(()=>console.log('Connection to MongoDB is Successfull'))
       .catch((err)=>console.log(err.message));
 
 var app = express();
 app.set('port', process.env.PORT || 3000);
+
 
 //loading the PrivateKey
 if(!config.get('jwtPrivateKey'))
@@ -35,11 +38,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.use('/', indexRouter);
 app.use('/item', itemRouter);
 app.use('/user',userRouter);
 app.use('/auth',authRouter);
+app.use('/signup',signupformRouter);
 
 
 // catch 404 and forward to error handler
