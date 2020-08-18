@@ -11,7 +11,7 @@ const {validateItem} = require('../models/item');
 router.get('/',async (req,res)=>{
 
     const items = await Item.find();
-    res.send(items);
+    res.render('index',{items : items});
 });
 
 router.post('/',[auth,admin],async (req,res,next)=>{
@@ -26,7 +26,8 @@ router.post('/',[auth,admin],async (req,res,next)=>{
         itemname : req.body.itemname,
         description : req.body.description,
         price : req.body.price,
-        category : req.body.category
+        category : req.body.category,
+        imagePath : req.body.imagePath
     })
     const savedItem = await item.save();
     res.send(savedItem);
@@ -49,6 +50,7 @@ router.put('/:id',async (req,res,next)=>{
     item.description = req.body.description;
     item.price =  req.body.price;
     item.category =  req.body.category;
+    item.imagePath = req.body.imagePath;
 
     const savedItem = await item.save();
     res.send(savedItem);

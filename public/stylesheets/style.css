@@ -1,4 +1,11 @@
 .thumbnail img{
-    max-height: 300px;
-    max-width: fit-content;
+    max-height: 170px;
+}
+
+.thumbnail description{
+    color : black;
+}
+
+.price{
+    font-weight: bolder;
 }
