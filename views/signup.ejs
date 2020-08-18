@@ -1,0 +1,24 @@
+<%- include('partials/header') -%>
+
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <h1>SignUp Form</h1>
+        <form action="/user" method="POST">
+            <div class="form-group">
+                <label for="email">Email</label> 
+                <input type="text" id="email" name="email" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label> 
+                <input type="password" id="password" name="password" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="name">Full Name</label> 
+                <input type="text" id="fullname" name="name" class="form-control">
+            </div>
+            <button class="btn btn-primary"type="submit">Create Account</button>
+        </form>
+    </div>
+</div>
+
+<%- include('partials/footer') -%>
