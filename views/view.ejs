@@ -1,0 +1,51 @@
+<%- include('partials/header') -%>
+
+    <div class="container">
+        <div class="row justify-content">
+            <div class="clearfix visible-md-block"></div>
+            <div class="col-md-2"></div>
+            <div class="col-md-4">
+                <h1></h1>
+                <img src="<%=item.imagePath%>" class="img-fluid w-100 h-auto " alt="item image">
+            </div>
+            <div class="col-md-offset-7">
+                <h2><%=item.itemname%></h2>
+                <p class="lead"><%=item.description%></p>
+                <p>Price: <span class="price">$<%=item.price%></span></p>
+                    <form class="mt-2" action="#" method="POST">
+                        <input value="<%=item._id%>" type="hidden" name="id">
+                        <label for="size">Select size:</label>
+                        <div class="form-row">
+                            <div class="col">
+                                <input type="radio" name="size" id="S" value="S" aria-label="Small" required>
+                                <label for="S">S</label>
+                            </div>
+                            <div class="col">
+                                    <input type="radio" name="size" id="M" value="M" aria-label="Medium" required>
+                                    <label for="M">M</label>
+                            </div>
+                            <div class="col">
+                                <input type="radio" name="size" id="L" value="L" aria-label="Large" required>
+                                <label for="L">L</label>
+                            </div>
+                            <div class="col">
+                                <input type="radio" name="size" id="XL" value="XL" aria-label="Extra Large" required>
+                                <label for="XL">XL</label>
+                            </div>
+                            <div class="col">
+                                <input type="radio" name="size" id="XL" value="XL" aria-label="Extra Large" required>
+                                <label for="XL">XXL</label>
+                            </div>
+                            <div class="form-inline">
+                                <label for="quantity">Quantity:</label>
+                                <input type="number" class="form-control" id="quantity" name="quantity" value="1" step="1" min="1" max="5" required>
+                            </div>
+                        </div>
+                        <br/>
+                        <button type="submit" class="btn btn-primary mt-3">Add to cart</button>
+                    </form>
+            </div>
+        </div>
+    </div>
+
+<%- include('partials/footer') -%>

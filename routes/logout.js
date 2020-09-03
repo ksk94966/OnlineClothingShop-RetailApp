@@ -3,7 +3,10 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('signup', { 'message': null});
+
+  res.clearCookie('x-auth-token');
+  
+  res.redirect('/item');
 });
 
 module.exports = router;

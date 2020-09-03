@@ -7,12 +7,18 @@ var mongoose = require('mongoose');
 var config = require('config');
 var bodyParser = require('body-parser');
 
+//middleware
+var isLoggedIn = require('./middleware/isLoggedIn');
+
 //routes
 var indexRouter = require('./routes/index');
 var itemRouter = require('./routes/item');
 var userRouter = require('./routes/user');
+var loginRouter = require('./routes/login');
+var logoutRouter = require('./routes/logout');
 var authRouter = require('./routes/auth');
 var signupformRouter = require('./routes/signup');
+var viewRouter = require('./routes/view');
 mongoose.connect('mongodb://localhost/retail', {useNewUrlParser: true,useUnifiedTopology:true})
       .then(()=>console.log('Connection to MongoDB is Successfull'))
       .catch((err)=>console.log(err.message));
@@ -40,12 +46,19 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cookieParser());
+
+app.use(isLoggedIn);
+// res.locals.loggedIn = false;
 
 app.use('/', indexRouter);
 app.use('/item', itemRouter);
 app.use('/user',userRouter);
+app.use('/login',loginRouter);
+app.use('/logout',logoutRouter);
 app.use('/auth',authRouter);
 app.use('/signup',signupformRouter);
+app.use('/view',viewRouter);
 
 
 // catch 404 and forward to error handler
@@ -56,6 +69,7 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
+  
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 

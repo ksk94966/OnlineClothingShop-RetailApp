@@ -11,26 +11,12 @@
 				<p class="description"><%= items[i].description %></p>
 				<div class="clearfix">
 					  <div class="price pull-left"><%= items[i].price %>$</div>
-					  <a href="#" class="btn btn-success pull-right" role="button">Add-to-Cart</a>
+					  <a href="/view/<%= items[i]._id %> " class="btn btn-success pull-right" role="button">View Item</a>
 				</div>
 			  </div>
 			</div>
 		</div>
 	 <% } %>
-	<div class="col-sm-6 col-md-4">
-		<div class="thumbnail">
-		  <img src="/images/joshua-rawson-harris-CpXtjjyotiY-unsplash.jpg" class="img-responsive" alt="...">
-		  <div class="caption">
-			<h3>Scenery</h3>
-			<p class="description">Lorem ipsum dolor sit amet</p>
-		  </p>
-			   <div class="clearfix">
-				  <div class="price pull-left">12$</div>
-				  <a href="#" class="btn btn-success pull-right" role="button">Add-to-Cart</a>
-			   </div>
-		  </div>
-		</div>
-	  </div>
 </div>
 </div>
 <%- include('partials/footer') -%>

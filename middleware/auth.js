@@ -3,8 +3,6 @@ const config = require('config');
 
 function auth(req,res,next){
 
-    //verifying the token is present or not
-    const token = req.header('x-auth-token');
     if(!token)
     {
         //console.log("Token not found");

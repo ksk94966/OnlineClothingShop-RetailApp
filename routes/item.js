@@ -1,8 +1,12 @@
 const auth = require('../middleware/auth');
 const admin = require('../middleware/admin');
+const isLoggedIn = require('../middleware/isLoggedIn');
+const jwt = require('jsonwebtoken');
+const config = require('config');
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+
 
 
 const {Item} = require('../models/item');
@@ -10,8 +14,10 @@ const {validateItem} = require('../models/item');
 
 router.get('/',async (req,res)=>{
 
+
     const items = await Item.find();
     res.render('index',{items : items});
+    
 });
 
 router.post('/',[auth,admin],async (req,res,next)=>{

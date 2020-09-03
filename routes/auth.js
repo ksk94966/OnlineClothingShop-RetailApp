@@ -13,19 +13,19 @@ router.post('/',async (req,res,next)=>{
 
     const result = await validateUser(req.body);
     if(result.error){
-        res.status(400).send(result.error.details[0].message);
+        res.status(400).render('login',{'message': result.error.details[0].message});
         return;
     }
     let user = await User.findOne({email : req.body.email});
     if(!user)
-        return res.status(400).send("Invalid email or Password");
+        return res.status(400).render('login',{'message': "Invalid email or Password"});
 
     let validPassword = await bcrypt.compare(req.body.password,user.password);
     if(!validPassword)
-        return res.status(400).send('Invalid email or Password');
+        return res.status(400).render('login',{'message': "Invalid email or Password"});
     
     const token = await jwt.sign({_id : user._id,isAdmin : user.isAdmin},config.get('jwtPrivateKey'));
-    res.header('x-auth-token',token).send("Login Successful");      
+    res.cookie('x-auth-token',token,{ maxAge: 900000, httpOnly: false }).redirect("/item");      
 });
 
 function validateUser(user){
