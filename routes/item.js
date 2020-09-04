@@ -12,13 +12,43 @@ const mongoose = require('mongoose');
 const {Item} = require('../models/item');
 const {validateItem} = require('../models/item');
 
-router.get('/',async (req,res)=>{
+// router.get('/',async (req,res)=>{
 
 
-    const items = await Item.find();
-    res.render('index',{items : items});
+//     const items = await Item.find();
+//     res.render('index',{items : items});
     
-});
+// });
+
+//https://www.npmjs.com/package/mongodb-ejs-pagination
+
+
+router.get('/',function(req,res){
+
+    res.redirect('item/1');
+})
+
+//Pagination Implementation
+router.get('/:page',async function(req, res, next) {
+    var perPage = 4;
+    var page =  req.params.page || 1;
+ 
+    await Item
+        .find({})
+        .skip((perPage * page) - perPage)
+        .limit(perPage)
+        .exec(function(err, items) {
+            Item.count().exec(function(err, count) {
+                if (err) return next(err)
+                console.log(count);
+                res.render('index', {
+                    items: items,
+                    current: page,
+                    pages: Math.ceil(count / perPage)
+                })
+            })
+        })
+})
 
 router.post('/',[auth,admin],async (req,res,next)=>{
 
