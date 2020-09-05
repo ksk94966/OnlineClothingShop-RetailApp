@@ -23,11 +23,31 @@
       
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <form class="navbar-form navbar-left">
+            <form class="navbar-form navbar-left" action='/item' method='GET'>
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search Products">
+                <select class="form-control form-control-sm mr-2" name="category">
+                  <% if(locals.category){ %>
+                    <option value="<%= locals.category %> " selected><%= locals.category%> </option>
+                  <% }else{ %>    
+                  <option value="" selected>Category</option>
+                  <% } %> 
+                  <option value="Shirt">Shirt</option>
+                  <option value="Trousers">Trousers</option>
+                  <option value="Footwear">Footwear</option>
+                  <option value="Sunglasses">Sunglasses</option>
+                </select>
               </div>
-              <button type="submit" class="btn btn-default">Search</button>
+              <div class="form-group">
+                <% if(locals.search){ %>
+                  <input type="text" class="form-control" name="search" value="<%= locals.search %> ">
+                <% }else{ %>    
+                  <input type="text" class="form-control" name="search">
+                <% } %> 
+              </div>
+              <button type="submit"  class="btn btn-default">Search</button>
+              <% if (locals.category || locals.search) { %>
+                <a href="/item" class="btn btn-outline-action btn-sm my-2 my-sm-0 ml-1">Clear</a>
+            <% } %>
             </form>
             <ul class="nav navbar-nav navbar-right">
               <li><a href="#">Cart</a></li>

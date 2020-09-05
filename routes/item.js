@@ -7,34 +7,32 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 
-
-
 const {Item} = require('../models/item');
 const {validateItem} = require('../models/item');
 
-// router.get('/',async (req,res)=>{
+router.get('/',async function(req, res, next) {
 
-
-//     const items = await Item.find();
-//     res.render('index',{items : items});
+    var clause = {};
+    if(req.query.search){
+        clause.itemname = new RegExp('.*' + validateString(req.query.search) + '.*', 'i');
+        res.locals.search = req.query.search;
+    }
+    else{
+        res.locals.search = "";
+    }
+    if(req.query.category){
+        clause.category = new RegExp('.*' + validateString(req.query.category) + '.*', 'i');
+        res.locals.category = req.query.category;
+    }else{
+        res.locals.category = "";
+    }
+    //console.log(clause);
     
-// });
-
-//https://www.npmjs.com/package/mongodb-ejs-pagination
-
-
-router.get('/',function(req,res){
-
-    res.redirect('item/1');
-})
-
-//Pagination Implementation
-router.get('/:page',async function(req, res, next) {
     var perPage = 4;
-    var page =  req.params.page || 1;
+    var page =  isNaN(req.query.page) ? 1 : Number(req.query.page);
  
     await Item
-        .find({})
+        .find(clause)
         .skip((perPage * page) - perPage)
         .limit(perPage)
         .exec(function(err, items) {
@@ -44,7 +42,7 @@ router.get('/:page',async function(req, res, next) {
                 res.render('index', {
                     items: items,
                     current: page,
-                    pages: Math.ceil(count / perPage)
+                    pages: Math.ceil(count / perPage),
                 })
             })
         })
@@ -100,5 +98,11 @@ router.delete("/:id",async (req,res)=>{
         console.log("Item with given id is not found");
     res.send(item);
 })
+
+function validateString(str){
+
+    var result= str.replace(/[^\w]/g, '');
+    return result;
+}
 
 module.exports = router;
