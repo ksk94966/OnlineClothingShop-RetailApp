@@ -16,7 +16,7 @@
     "http-errors": "^1.6.3",
     "joi": "^17.2.0",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.20",
     "mongoose": "^5.9.27",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.4"

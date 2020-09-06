@@ -3,6 +3,7 @@ const config = require('config');
 
 function auth(req,res,next){
 
+    const token = req.cookies['x-auth-token'];
     if(!token)
     {
         //console.log("Token not found");

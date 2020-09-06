@@ -25,7 +25,7 @@ router.post('/',async (req,res,next)=>{
         return res.status(400).render('login',{'message': "Invalid email or Password"});
     
     const token = await jwt.sign({_id : user._id,isAdmin : user.isAdmin},config.get('jwtPrivateKey'));
-    res.cookie('x-auth-token',token,{ maxAge: 900000, httpOnly: false }).redirect("/item");      
+    res.cookie('x-auth-token',token,'isAdmin',user.isAdmin,{ maxAge: 900000, httpOnly: false }).redirect("/item");      
 });
 
 function validateUser(user){

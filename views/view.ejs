@@ -42,7 +42,10 @@
                             </div>
                         </div>
                         <br/>
-                        <button type="submit" class="btn btn-primary mt-3">Add to cart</button>
+                        <%if(locals.isAdmin) { %> 
+                        <a class="btn btn-primary mt-3" href="#" role="button">Edit Details</a>
+                        <% } %> 
+                        <button type="submit" class="btn btn-success mt-3">Add to cart</button>
                     </form>
             </div>
         </div>

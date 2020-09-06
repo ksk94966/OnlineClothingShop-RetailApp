@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 
 //middleware
 var isLoggedIn = require('./middleware/isLoggedIn');
+var isAdmin = require('./middleware/admin');
 
 //routes
 var indexRouter = require('./routes/index');
@@ -49,7 +50,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use(isLoggedIn);
-// res.locals.loggedIn = false;
+app.use(isAdmin);
 
 app.use('/', indexRouter);
 app.use('/item', itemRouter);

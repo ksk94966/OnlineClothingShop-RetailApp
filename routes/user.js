@@ -28,7 +28,7 @@ router.post('/',async (req,res)=>{
     user.password = await  bcrypt.hash(user.password,salt);
     const savedUser = await user.save();
     const token = await jwt.sign({_id : user._id,isAdmin : user.isAdmin},config.get('jwtPrivateKey'));
-    res.cookie('x-auth-token',token,{ maxAge: 900000, httpOnly: false }).redirect('/item');
+    res.cookie('x-auth-token',token,'isAdmin',user.isAdmin,{ maxAge: 900000, httpOnly: false }).redirect('/item');
 });
 
 module.exports = router;
