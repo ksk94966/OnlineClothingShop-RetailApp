@@ -59,9 +59,12 @@
                   <li role="separator" class="divider"></li>
                   <li><a href="/signup">SignUp</a></li>
                   <li role="separator" class="divider"></li>
-                  <% }else{ %> 
+                  <% }else{ %>
+                    <% if(isAdmin){ %> 
+                        <li><a href="/item/add">Add Item</a></li>
+                      <% } %> 
                   <li><a href="/logout">Logout</a></li>
-                  <% } %> 
+                    <% } %> 
                 </ul>
               </li>
             </ul>

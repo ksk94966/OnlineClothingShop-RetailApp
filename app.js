@@ -60,6 +60,7 @@ app.use('/logout',logoutRouter);
 app.use('/auth',authRouter);
 app.use('/signup',signupformRouter);
 app.use('/view',viewRouter);
+app.use('/item/add',itemRouter);
 
 
 // catch 404 and forward to error handler

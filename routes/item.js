@@ -10,7 +10,7 @@ const mongoose = require('mongoose');
 const {Item} = require('../models/item');
 const {validateItem} = require('../models/item');
 
-router.get('/',async function(req, res, next) {
+router.get('/',async (req, res, next)=> {
 
     var clause = {};
     if(req.query.search){
@@ -46,6 +46,11 @@ router.get('/',async function(req, res, next) {
                 })
             })
         })
+})
+
+router.get('/add',admin,(req,res,next)=>{
+
+    res.render('add');
 })
 
 router.post('/',[auth,admin],async (req,res,next)=>{
