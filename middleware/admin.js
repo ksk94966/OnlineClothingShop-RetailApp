@@ -7,7 +7,7 @@ function admin(req,res,next){
 
     if(token){
         const decoded = jwt.verify(token,config.get('jwtPrivateKey'));
-        console.log(decoded);
+        //console.log(decoded);
         if(token && decoded.isAdmin)
         {
             //return res.status(403).send("UnAuthorized Access!!!");

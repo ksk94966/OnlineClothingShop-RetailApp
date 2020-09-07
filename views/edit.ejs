@@ -1,22 +1,23 @@
 <%- include('partials/header') -%>
+<% console.log(item) %> 
 <div class="container">
     <div class="row justify-content-center">
         <div class="clearfix visible-md-block"></div>
         <div class="col-md-1"></div>
         <div class="col-md-4">
             <h1></h1>
-            <img src="/images/default.jpg" style="max-height: 500px" class="img-responsive"  id="uploaded_img"/>
+            <img src="/images/<%=item.imagePath%> " style="max-height: 500px" class="img-responsive"  id="uploaded_img"/>
         </div>
         <div class="col-md-offset-6">
-            <h3>Add a New Item</h3>
-            <form action="/item" method="POST" enctype="multipart/form-data">
+            <h3>Update Item Details</h3>
+            <form action="/item/<%=item._id%>?_method=PUT" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="itemname">Item Name</label>
-                    <input type="text" class="form-control" id="itemname" name="itemname" placeholder="Blue trousers" required>
+                    <input type="text" class="form-control" id="itemname" name="itemname" value="<%=item.itemname%>" required>
                 </div>
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea class="form-control" id="description" name="description" placeholder="Made with jeans material" rows=2></textarea>
+                    <textarea class="form-control" id="description" name="description" placeholder="Made with jeans material" rows=2><%=item.description%> </textarea>
                 </div>
 
                 <div class="form-group col-md-6" style="padding-left: 0px;">
@@ -31,38 +32,44 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="price">Price($)</label>
-                    <input type="number" class="form-control" id="price" name="price"  min="1.0" step="0.01" placeholder="price" required>
+                    <input type="number" class="form-control" id="price" name="price" value="<%=item.price%>"  min="1.0" step="0.01" placeholder="price" required>
                 </div>
                 
                 <label>Size availability in inventory</label>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="S">S</label>
-                        <input type="number" class="form-control" name="S" min="1" max="200" value="5">
+                        <input type="number" class="form-control" name="S" min="1" max="200" value="<%=item.sizes.S%>">
                     </div>
                       <div class="form-group col-md-6">
                         <label for="M">M</label>
-                        <input type="number" class="form-control" name="M" min="1" max="200" value="5">
+                        <input type="number" class="form-control" name="M" min="1" max="200" value="<%=item.sizes.M%>">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="L">L</label>
-                        <input type="number" class="form-control" name="L" min="1" max="200" value="5">
+                        <input type="number" class="form-control" name="L" min="1" max="200" value="<%=item.sizes.L%>">
                     </div>
                       <div class="form-group col-md-6">
                         <label for="XL">XL</label>
-                        <input type="number" class="form-control" name="XL" min="1" max="200" value="5">
+                        <input type="number" class="form-control" name="XL" min="1" max="200" value="<%=item.sizes.XL%>">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="item-image">Upload item image</label>
-                    <input type="file" class="form-control-file" name="pic" accept="image/*" required>
+                    <input type="file" class="form-control-file" name="pic" value="<%=item.imagePath%>" accept="image/*" >
                 </div>
-                <button type="submit" class="btn btn-primary">Create item</button>
+                <button type="submit" class="btn btn-primary">Update item</button>
                 <a class="btn btn-danger" href="/item">Cancel</a>
             </form>
         </div>
     </div>
 </div>
+<script>
+    var value="<%=item.category%>";
+    if (value) {
+        $('#category').val(value);
+    }
+</script>
 
 <%- include('partials/footer') -%>

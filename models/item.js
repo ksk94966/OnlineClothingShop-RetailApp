@@ -18,7 +18,6 @@ const Item = mongoose.model('item',mongoose.Schema(
             'M' : {type : Number, min : 1 ,max : 200 , default : 1},
             'L' : {type : Number, min : 1 ,max : 200 , default : 1},
             'XL' : {type : Number, min : 1 ,max : 200 , default : 1},
-            'XXL' : {type : Number, min : 1 ,max : 200 , default : 1},
         },
         imagePath : {
             type : String,
@@ -33,7 +32,6 @@ function validateItem(item){
         category : Joi.string().min(1).max(20).required(),
         price : Joi.number().min(1).max(50).required(),
         description : Joi.string().min(1).max(1000).required(),
-        imagePath : Joi.string().min(1).max(1000).required(),
     });
 
     return Schema.validate(item);

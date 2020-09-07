@@ -6,6 +6,7 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 var config = require('config');
 var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
 
 //middleware
 var isLoggedIn = require('./middleware/isLoggedIn');
@@ -20,6 +21,7 @@ var logoutRouter = require('./routes/logout');
 var authRouter = require('./routes/auth');
 var signupformRouter = require('./routes/signup');
 var viewRouter = require('./routes/view');
+var editRouter = require('./routes/edit');
 mongoose.connect('mongodb://localhost/retail', {useNewUrlParser: true,useUnifiedTopology:true})
       .then(()=>console.log('Connection to MongoDB is Successfull'))
       .catch((err)=>console.log(err.message));
@@ -44,6 +46,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use(methodOverride('_method'))
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -61,6 +65,7 @@ app.use('/auth',authRouter);
 app.use('/signup',signupformRouter);
 app.use('/view',viewRouter);
 app.use('/item/add',itemRouter);
+app.use('/edit',editRouter);
 
 
 // catch 404 and forward to error handler

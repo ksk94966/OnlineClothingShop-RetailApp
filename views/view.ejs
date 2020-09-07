@@ -3,10 +3,10 @@
     <div class="container">
         <div class="row justify-content">
             <div class="clearfix visible-md-block"></div>
-            <div class="col-md-2"></div>
+            <div class="col-md-1"></div>
             <div class="col-md-4">
                 <h1></h1>
-                <img src="<%=item.imagePath%>" class="img-fluid w-100 h-auto " alt="item image">
+                <img src="/images/<%=item.imagePath%>" class="img-fluid w-100 h-auto" style="max-width: 425px;" alt="item image">
             </div>
             <div class="col-md-offset-7">
                 <h2><%=item.itemname%></h2>
@@ -43,7 +43,7 @@
                         </div>
                         <br/>
                         <%if(locals.isAdmin) { %> 
-                        <a class="btn btn-primary mt-3" href="#" role="button">Edit Details</a>
+                        <a class="btn btn-primary mt-3" href="/edit/<%=item._id%> " role="button">Edit Details</a>
                         <% } %> 
                         <button type="submit" class="btn btn-success mt-3">Add to cart</button>
                     </form>
